@@ -5,6 +5,7 @@ var React = require('react');
 var Home = require('./components/homePage');
 var Header = require('./components/common/header');
 var About = require('./components/about/aboutPage');
+var Author = require('./components/authors/authorsPage');
 
 (function (win) {
     "use strict";
@@ -16,13 +17,16 @@ var About = require('./components/about/aboutPage');
                 case 'about':
                     Child = About;
                     break;
+                case  'authors':
+                    Child = Author;
+                    break;
                 default:
                     Child = Home;
             }
             return (
                 <div>
-                <Header/>
-                <Child/>
+                    <Header/>
+                    <Child/>
                 </div>
             );
         }
