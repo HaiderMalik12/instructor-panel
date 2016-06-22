@@ -2,44 +2,29 @@
 
 var React = require('react');
 var AuthorApi = require('../../api/authorApi');
+var AuthorList = require('./authorsList');
 
-var Author = React.createClass({
-    getInitialSate: function () {
+var AuthorPage = React.createClass({
+    getInitialState: function() {
         return {
             authors: []
         };
     },
-    componentWillMount: function () {
-        //get data from our mock api and chna
-        this.setState({authors: AuthorApi.getAllAuthors()});
+
+    componentDidMount: function() {
+        if (this.isMounted()) {
+            this.setState({ authors: AuthorApi.getAllAuthors() });
+        }
     },
-    render: function () {
 
-        var createAuthorRow= function (author) {
-            return(
-              <tr key={author.id}>
-                  <td><a href={"#/authors/"+ author.id}>{author.id}</a> </td>
-                  <td> {author.firstName}  {author.lastName}</td>
-                  </tr>
-            );
-        };
-
+    render: function() {
         return (
             <div>
                 <h1>Authors</h1>
-                <table className="table">
-                    <thead>
-                    <th>ID</th>
-                    <th>Name</th>
-                    </thead>
-                    <tbody>
-                    {this.state.authors.map(createAuthorRow, this)}
-                    </tbody>
-                </table>
+                <AuthorList authors={this.state.authors} />
             </div>
         );
     }
 });
 
-
-module.exports = Author;
+module.exports = AuthorPage;
